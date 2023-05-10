@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+
+<p>Date: <%= flight.departs.toLocaleDateString() %></p>
+<p>Airline: <%= flight.airline %></p>
+<p>Airport: <%= flight.airport %></p>
+<p>Destinations: 
+    <% flight.destinations.forEach(d => { %>
+        <%= d.airport %> (<%= d.arrival.toLocaleTimeString() %>)  
+    <% }); %>
+</p>
+<form action="/flights/<%= flight._id %>" method="POST">
+    <select name="airport">
+        <option value="OAK">OAK</option>
+        <option value="LAX">LAX</option>
+        <option value="HOU">HOU</option>
+        <option value="DEN">DEN</option>
+        <option value="SFO">SFO</option>
+    </select>
+    <input type="datetime-local" name="arrival" required>
+    <button type="submit">Add Destination</button>
+</form>
+<p>Flight Number: <%= flight.flightNo %></p>    
+<p>Tickets: 
+    <% tickets.forEach(t => { %>
+        <%= t.seat %>
+    <% }); %>
+</p>    
+<a href="/flights/<%= flight._id %>/tickets/new">New Ticket</a>
+
+<a href="/flights/new">Add Flight</a>
+
+<%- include('../partials/footer') %>
